@@ -1,26 +1,13 @@
-// Feedly Unread Count in Favicon and Title Bar
-// 15 March 2013
-// Released under the GPL license
-// http://www.gnu.org/copyleft/gpl.html
-//
-// --------------------------------------------------------------------
-//
-// This is a Greasemonkey user script.
-//
-// To install, you need Greasemonkey: http://greasemonkey.mozdev.org/
-// Then restart Firefox and revisit this script.
-// Under Tools, there will be a new menu item to "Install User Script".
-// Accept the default configuration and install.
-//
-// To uninstall, go to Tools/Manage User Scripts,
-// select "ReTweet", and click Uninstall.
-//
-// --------------------------------------------------------------------
-//
 // ==UserScript==
-// @name          Feedly Unread Count in Favicon and Title Bar
-// @description   Places unread count in favicon and title bar
-// @version       1.3
+// @name          Feedly unread counter
+// @description   Userscript to place the Feedly unread count in the favicon and title bar
+// @author        Wout Bittremieux, Matthew Wilkin
+// @version       1.3.1
+// @encoding      utf-8
+// @license       https://www.gnu.org/licenses/gpl-3.0.en.html
+// @homepage      https://github.com/bittremieux/feedly-unread
+// @updateURL     https://raw.githubusercontent.com/bittremieux/feedly-unread/master/feedly-unread.user.js
+// @downloadURL   https://raw.githubusercontent.com/bittremieux/feedly-unread/master/feedly-unread.user.js
 // @include       http://feedly.com/*
 // @include       https://feedly.com/*
 // @include       http://www.feedly.com/*
@@ -227,7 +214,7 @@ function FeedlyFavIconAlerts() {
 			{
 				if (unreadCounters[i].className.indexOf('categoryUnreadCount') >= 0
 					&& unreadCounters[i].getAttribute('data-category') != '#latest'
-					&& unreadCounters[i].getAttribute('data-category') != 'global.must')
+					&& unreadCounters[i].getAttribute('data-category') != 'global.all')
 				{
 					var categoryName = unreadCounters[i].getAttribute('data-category');
 
