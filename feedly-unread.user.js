@@ -178,71 +178,24 @@ function FeedlyFavIconAlerts() {
 		return true;
 	}
 
-	this.getUnreadCount = function() {
-		var feedCategory = [];
-		var feedUnreadNumbers = [];
-		var categoryUnreadNumbers = [];
-
-		var sidearea = document.getElementById('sideArea');
-		if (sidearea != null)
-		{
-			var unreadCounters = sidearea.getElementsByTagName('div');
-			for (i = 0; i < unreadCounters.length; i++)
-			{
-				if (unreadCounters[i].className.indexOf('feedUnreadCount') >= 0)
-				{
-					var currentUnreadCount = unreadCounters[i].innerHTML.replace(/[^0-9]+/gi, '');
-					if (currentUnreadCount == null || currentUnreadCount == undefined || currentUnreadCount.length == 0)
-					{
-						currentUnreadCount = 0;
-					}
-
-					var feedId = unreadCounters[i].getAttribute('data-feedid');
-					if (feedUnreadNumbers[feedId] == null || feedUnreadNumbers[feedId] == undefined)
-					{
-						feedUnreadNumbers[feedId] = parseInt(currentUnreadCount, 10);
-					}
-				}
-			}
-		}
-
-		var tabarea = document.getElementById('feedlyTabs');
-		if (tabarea != null)
-		{
-			var unreadCounters = tabarea.getElementsByTagName('div');
-			for (i = 0; i < unreadCounters.length; i++)
-			{
-				if (unreadCounters[i].className.indexOf('categoryUnreadCount') >= 0
-					&& unreadCounters[i].getAttribute('data-category') != '#latest'
-					&& unreadCounters[i].getAttribute('data-category') != 'global.all')
-				{
-					var categoryName = unreadCounters[i].getAttribute('data-category');
-
-					var categoryUnreadCount = unreadCounters[i].innerHTML.replace(/[^0-9]+/gi, '');
-					if (categoryUnreadCount == null || categoryUnreadCount == undefined || categoryUnreadCount.length == 0)
-					{
-						categoryUnreadCount = 0;
-					}
-					categoryUnreadNumbers[categoryName] = parseInt(categoryUnreadCount, 10);
-				}
-			}
-		}
-
-		var feedUnreadNumber = 0;
-		for (item in feedUnreadNumbers)
-		{
-			feedUnreadNumber += feedUnreadNumbers[item];
-		}
-
-		var categoryUnreadNumber = 0;
-		for (item in categoryUnreadNumbers)
-		{
-			categoryUnreadNumber += categoryUnreadNumbers[item];
-		}
-
-		var largerCount = (categoryUnreadNumber > feedUnreadNumber) ? categoryUnreadNumber : feedUnreadNumber;
-		return largerCount;
-	}
+    this.getUnreadCount = function () {
+      var unreadCount = 0
+      var header = document.getElementById('latesttab_header');
+      if (header != null) {
+        var headerDivs = header.getElementsByTagName('div');
+        for (i = 0; i < headerDivs.length; i++) {
+          if (headerDivs[i].className.indexOf('streamUnreadCount') >= 0) {
+            var unreadCountString = headerDivs[i].innerHTML.replace(/[^0-9]+/gi, '');
+            if (unreadCountString == null || unreadCountString == undefined || unreadCountString.length == 0) {
+              unreadCount = 0
+            } else {
+              unreadCount = parseInt(unreadCountString, 10)
+            }
+          }
+        }
+      }
+      return unreadCount
+  }
 
 	this.drawUnreadCount = function(unread) {
 		var iconCanvas = self.getUnreadCanvas();
